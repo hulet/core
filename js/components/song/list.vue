@@ -11,7 +11,7 @@
     <table class="song-list-header" :class="mergedConfig.sortable ? 'sortable' : 'unsortable'">
       <thead>
         <tr>
-          <th @click="sort('song.track')" class="track-number" v-if="mergedConfig.columns.includes('track')">
+          <th @click="sort(['song.disc', 'song.track'])" class="track-number" v-if="mergedConfig.columns.includes('track')">
             #
             <i class="fa fa-angle-down" v-show="primarySortField === 'song.track' && sortOrder > 0"></i>
             <i class="fa fa-angle-up" v-show="primarySortField === 'song.track' && sortOrder < 0"></i>
@@ -215,7 +215,7 @@ export default Vue.extend({
 
       if (this.sortFields.includes('song.track') && !this.sortFields.includes('song.disc')) {
         // Track numbers should always go in conjunction with disc numbers.
-        this.sortFields.push('song.disc')
+        this.sortFields.unshift('song.disc')
       }
 
       this.sortOrder = order === null ? this.nextSortOrder() : order
